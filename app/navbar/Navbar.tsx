@@ -6,7 +6,7 @@ import logo from "@/public/loggo.png"
 function Navbar() {
   return (
     <>
-      <div className="flex top-0  w-full text-center bg-yellow-50   text-black justify-between items-center w-[min-(992px,100%-3rem )]: h-20 sticky">
+      <div className="flex top-0 z-10 w-full text-center bg-yellow-50   text-black justify-between items-center w-[min-(992px,100%-3rem )]: h-20 sticky">
         <div className="h-12 w-12 ml-10 ">
           <Image
           src={logo}

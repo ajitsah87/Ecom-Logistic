@@ -1,10 +1,7 @@
 import React from 'react'
-import { useGetAllProductsQuery } from "@/app/redux/services/productsApi";
-function Homee() {
-const data=()=>{
 
-    
-}
+function Homee() {
+
 
 
   return (

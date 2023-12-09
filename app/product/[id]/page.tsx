@@ -6,6 +6,7 @@ import { MotionButton, MotionDiv, MotionP } from "@/app/MotionElement";
 import { LuMoveLeft } from "react-icons/lu";
 import { FaMinus, FaPlus, FaStar } from "react-icons/fa6";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import AnimateComp from "@/app/AnimateComp";
 import { useAppSelector, useAppDispatch } from "@/app/redux/hooks";
 import {addToCart, decrementQuantity, incrementQuantity, removeFromCart} from '@/app/redux/features/cartSlice'
@@ -29,6 +30,8 @@ const Page = ({ params }: { params: { id: string } }) => {
   const {cart} = useAppSelector(store => store.cartReducer)
   const dispatch = useAppDispatch()
 
+  const router = useRouter()
+
 
   // retrieving selected product to display
   const findProduct = (id: number) => {
@@ -40,28 +43,32 @@ const Page = ({ params }: { params: { id: string } }) => {
 
   // handling product quantity
   const handleQuantityBtn = (action: string) => {
-    if(alreadyInCart) {
-      if(action === 'increment') dispatch(incrementQuantity(Number(params.id)))
-      else dispatch(decrementQuantity(Number(params.id)))
+    if (alreadyInCart) {
+      if (action === "increment")
+        dispatch(incrementQuantity(Number(params.id)));
+      else dispatch(decrementQuantity(Number(params.id)));
 
       // updating localstorage for data retrieving on reload
       setValue((prev: any) => {
         const updatedCart = prev.map((item: any) => {
           if (item.product.id === Number(params.id)) {
-            return { ...item, quantity: action === 'increment' ? item.quantity + 1 : item.quantity - 1 };
+            return {...item, quantity: action === "increment" ? item.quantity + 1
+                  : item.quantity !== 1
+                  ? item.quantity - 1
+                  : 1
+            }
           }
           return item;
         })
-        return updatedCart;
+        return updatedCart
       })
     }
 
-    if(action === 'increment') {
-      setProductQuantity(prev => prev + 1)
+    if (action === "increment") {
+      setProductQuantity((prev) => prev + 1);
     } else {
-      setProductQuantity(prev => prev !== 1 ? prev - 1 : prev)
+      setProductQuantity((prev) => (prev !== 1 ? prev - 1 : prev));
     }
-
   }
 
   // adding product to cart
@@ -75,14 +82,14 @@ const Page = ({ params }: { params: { id: string } }) => {
 
   // animationVariants
   const animationVariants = {
-    hidden: {opacity: 0, y: 30},
+    hidden: {opacity: 0, y: 50},
     show: {opacity: 1, y: 0, transition: {
       staggerChildren: .05
     }}
   }
 
   const childrenVariants = {
-    hidden: {opacity: 0, y: 20},
+    hidden: {opacity: 0, y: 30},
     show: {opacity: 1, y: 0}
   }
 
@@ -102,7 +109,7 @@ const Page = ({ params }: { params: { id: string } }) => {
         <div className="flex lg:flex-row flex-col overflow-hidden lg:h-screen">
           <div className="flex-1 grid place-content-center p-5">
             <MotionDiv
-              initial={{ opacity: 0, x: -30 }}
+              initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               className="w-96 aspect-square relative"
             >
@@ -120,18 +127,17 @@ const Page = ({ params }: { params: { id: string } }) => {
             animate="show"
             className="flex-1 grid place-content-center bg-zinc-200 p-5"
           >
-            <div className="w-96 space-y-10">
+            <div className="w-96 space-y-8">
               <MotionDiv
                 className="hidden lg:block"
                 variants={childrenVariants}
               >
-                <Link
-                  href="/"
-                  className="bg-zinc-300 py-2 px-6 rounded-md font-medium w-fit flex gap-2 items-center group"
+                <button onClick={() => router.back()}
+                  className="bg-zinc-300 py-2 px-6 rounded-md font-medium w-fit flex gap-2 items-center group text-sm"
                 >
-                  <LuMoveLeft className="group-hover:-translate-x-1 transition-transform" />{" "}
-                  back to products
-                </Link>
+                  <LuMoveLeft className="group-hover:-translate-x-1 transition-transform mt-[1px]" />{" "}
+                  Go Back
+                </button>
               </MotionDiv>
               <div className="space-y-5">
                 <MotionP
@@ -172,7 +178,7 @@ const Page = ({ params }: { params: { id: string } }) => {
                   <MotionButton
                     onClick={() => handleAddToCart(product)}
                     variants={childrenVariants}
-                    className="py-3 px-6 pt-4 font-medium text-xs bg-blue-600 hover:bg-blue-700 rounded-md text-white"
+                    className="py-3 px-6 font-medium text-xs bg-blue-600 hover:bg-blue-700 rounded-md text-white"
                   >
                     ADD TO CART
                   </MotionButton>
@@ -181,7 +187,7 @@ const Page = ({ params }: { params: { id: string } }) => {
                     variants={childrenVariants}
                     className="font-medium text-xs bg-rose-600 hover:bg-rose-700 rounded-md text-white"
                   >
-                    <Link className="inline-block py-3 px-6 pt-4" href="#">GO TO CART</Link>
+                    <Link className="inline-block py-3 px-6" href="/cart">GO TO CART</Link>
                   </MotionButton>
                 )}
               </AnimatePresence>
@@ -189,7 +195,7 @@ const Page = ({ params }: { params: { id: string } }) => {
           </MotionDiv>
         </div>
       ) : (
-        <div>product not found</div>
+        <div className="h-screen grid place-content-center font-medium">Product not found!</div>
       )}
     </AnimateComp>
   );

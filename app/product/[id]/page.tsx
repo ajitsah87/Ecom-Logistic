@@ -195,7 +195,7 @@ const Page = ({ params }: { params: { id: string } }) => {
           </MotionDiv>
         </div>
       ) : (
-        <div>product not found</div>
+        <div className="h-screen grid place-content-center font-medium">Product not found!</div>
       )}
     </AnimateComp>
   );

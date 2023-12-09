@@ -179,9 +179,9 @@ const CartPage = () => {
                   <LuMoveLeft className="group-hover:-translate-x-1 transition-transform mt-[1px]" />{" "}
                   Continue Shopping
                 </Link>
-                <button className="py-2 px-4 bg-slate-800 text-white font-medium">
+                <Link href="/payment-success" className="py-2 px-4 bg-slate-800 text-white font-medium">
                   Proceed to Checkout
-                </button>
+                </Link>
               </div>
             </MotionDiv>
           ) : (

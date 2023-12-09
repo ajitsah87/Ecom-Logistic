@@ -100,7 +100,7 @@ const CartPage = () => {
               {totalProducts.map((item) => (
                 <MotionDiv
                   variants={childrenVariants}
-                  className="flex justify-between items-center p-3 rounded-2xl bg-white"
+                  className="flex justify-between items-center flex-wrap gap-5 p-3 rounded-2xl bg-white"
                   key={item.product.id}
                 >
                   <Link href={`/product/${item.product.id}`}>
@@ -127,7 +127,7 @@ const CartPage = () => {
                       </div>
                     </div>
                   </Link>
-                  <div className="flex items-center w-72 px-5 text-lg">
+                  <div className="flex items-center w-72 text-lg">
                     <button
                       onClick={() =>
                         handleQuantityBtn({
@@ -154,8 +154,8 @@ const CartPage = () => {
                       <FaPlus className="text-xs group-hover:scale-125 transition-transform" />
                     </button>
                   </div>
-                  <div className="flex items-center w-72 pl-10 lg:pl-0">
-                    <p className="text-lg font-semibold min-w-[50%]">
+                  <div className="flex items-center w-72">
+                    <p className="text-lg font-semibold min-w-[50%] pl-5 lg:pl-0">
                       ${item.product.price}
                     </p>
                     <button

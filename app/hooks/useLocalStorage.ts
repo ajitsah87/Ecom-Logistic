@@ -1,5 +1,3 @@
-// useLocalStorage.ts
-
 import { useState, useEffect, Dispatch, SetStateAction } from 'react';
 
 type UseLocalStorageResult<T> = {

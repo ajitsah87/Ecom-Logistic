@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "./navbar/Navbar";
 import Products from "./components/Products";
+import Homee from "./components/Homee";
 
 const Home = () => {
 
@@ -11,6 +12,7 @@ const Home = () => {
           <h1 className="text-5xl font-bold text-white">Please Buy Everything</h1>
         </div>
         <Products />
+        <Homee/>
       </div>
   )
 }

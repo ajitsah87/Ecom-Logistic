@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "./navbar/Navbar";
 import Products from "./components/Products";
-import Homee from "./components/Homee";
+
 import Footer from "./components/Footer";
 
 const Home = () => {

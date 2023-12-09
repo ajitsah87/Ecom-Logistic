@@ -54,7 +54,7 @@ function Footer() {
                       href="#"
                       className="text-gray-700 transition hover:opacity-75"
                     >                    
- 1on1 Coaching
+Our products
                     </a>
                   </li>
                   <li>
